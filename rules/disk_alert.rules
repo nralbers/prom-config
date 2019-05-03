@@ -1,0 +1,11 @@
+groups:
+- name: home
+  rules:
+  - alert: BootDiskUsageWarn
+    expr: ((node_filesystem_size_bytes{mountpoint="/boot"}- node_filesystem_free_bytes{mountpoint="/boot"})/node_filesystem_size_bytes{mountpoint="/boot"})*100 > 50
+    for: 5m
+    labels:
+      severity: warn
+    annotations:
+      identifier: '{{ $labels.instance }}'
+      description: '{{ $labels.mountpoint }} partition is at {{ $value }} % utilisation (> 50%). for more than 5 minutes.'
