@@ -30,6 +30,12 @@ scrape_configs:
         env: prod
       targets:
       - eonwyn:9090
+  - job_name: cadvisor
+    dns_sd_configs:
+    - names: 
+      - tasks.cadvisor
+      type: 'A'
+      port: 8080
   - job_name: node
     metrics_path: /metrics
     static_configs:
